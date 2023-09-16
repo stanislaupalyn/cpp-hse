@@ -2,16 +2,21 @@
 
 #include <cctype>
 
+const int MIN_CODE = 33;
+const int MAX_CODE = 126;
+const int MIN_LENGTH = 8;
+const int MAX_LENGTH = 14;
+
 bool ValidatePassword(const std::string& password) {
     for (size_t i = 0; i < password.size(); ++i) {
         int code = static_cast<int>(password[i]);
 
-        if (code < 33 || code > 126) {
+        if (code < MIN_CODE || code > MAX_CODE) {
             return false;
         }
     }
 
-    if (password.size() < 8 || password.size() > 14) {
+    if (password.size() < MIN_LENGTH || password.size() > MAX_LENGTH) {
         return false;
     }
 
