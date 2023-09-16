@@ -4,8 +4,8 @@ bool IsPalindrome(const std::string& str) {
     if (str.empty()) {
         return true;
     }
-    size_t right_pointer = str.size() - 1;
-    for (size_t left_pointer = 0; left_pointer < right_pointer; ++left_pointer) {
+    int right_pointer = static_cast<int>(str.size()) - 1;
+    for (int left_pointer = 0; left_pointer < right_pointer; ++left_pointer) {
         if (str[left_pointer] == ' ') {
             continue;
         }
