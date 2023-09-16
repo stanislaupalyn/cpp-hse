@@ -1,7 +1,7 @@
 #include "palindrome.h"
 
 bool IsPalindrome(const std::string& str) {
-    if (str.size() == 0) {
+    if (str.empty()) {
         return true;
     }
     size_t right_pointer = str.size() - 1;
