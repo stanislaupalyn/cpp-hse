@@ -1,7 +1,10 @@
 #include "palindrome.h"
 
 bool IsPalindrome(const std::string& str) {
-    size_t right_pointer = static_cast<int>(str.size()) - 1;
+    if (str.size() == 0) {
+        return true;
+    }
+    size_t right_pointer = str.size() - 1;
     for (size_t left_pointer = 0; left_pointer < right_pointer; ++left_pointer) {
         if (str[left_pointer] == ' ') {
             continue;
