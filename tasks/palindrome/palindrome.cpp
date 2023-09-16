@@ -1,22 +1,22 @@
 #include "palindrome.h"
 
 bool IsPalindrome(const std::string& str) {
-    size_t leftPointer = 0;
-    size_t rightPointer = str.size() - 1;
-    while (leftPointer < rightPointer) {
-        if (str[leftPointer] == ' ') {
-            ++leftPointer;
+    size_t left_pointer = 0;
+    size_t right_pointer = str.size() - 1;
+    while (left_pointer < right_pointer) {
+        if (str[left_pointer] == ' ') {
+            ++left_pointer;
             continue;
         }
-        if (str[rightPointer] == ' ') {
-            --rightPointer;
+        if (str[right_pointer] == ' ') {
+            --right_pointer;
             continue;
         }
-        if (str[leftPointer] != str[rightPointer]) {
+        if (str[left_pointer] != str[right_pointer]) {
             return false;
         }
-        ++leftPointer;
-        --rightPointer;
+        ++left_pointer;
+        --right_pointer;
     }
     return true;
 }
