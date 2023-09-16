@@ -1,9 +1,9 @@
 #include "min_divisor.h"
 
 int64_t MinDivisor(int64_t number) {
-    for (int64_t i = 2; i * i <= number; i++) {
-        if (number % i == 0) {
-            return i;
+    for (int64_t divisor = 2; divisor * divisor <= number; ++divisor) {
+        if (number % divisor == 0) {
+            return divisor;
         }
     }
     return number;
