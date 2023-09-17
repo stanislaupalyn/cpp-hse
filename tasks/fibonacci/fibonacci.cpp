@@ -8,5 +8,5 @@ int64_t CalculateNthFibonacci(int64_t n) {
         previous = current;
         current = next;
     }
-    return a;
+    return previous;
 }
