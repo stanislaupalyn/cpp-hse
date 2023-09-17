@@ -1,23 +1,22 @@
 #include "password.h"
 
 #include <cctype>
+#include <cstdint>
 
-const int MIN_CODE = 33;
-const int MAX_CODE = 126;
-const int MIN_LENGTH = 8;
-const int MAX_LENGTH = 14;
+constexpr char MIN_CODE = 33;
+constexpr char MAX_CODE = 126;
+constexpr size_t MIN_LENGTH = 8;
+constexpr size_t MAX_LENGTH = 14;
 
 bool ValidatePassword(const std::string& password) {
-    for (size_t i = 0; i < password.size(); ++i) {
-        int code = static_cast<int>(password[i]);
-
-        if (code < MIN_CODE || code > MAX_CODE) {
-            return false;
-        }
-    }
-
     if (password.size() < MIN_LENGTH || password.size() > MAX_LENGTH) {
         return false;
+    }
+
+    for (size_t i = 0; i < password.size(); ++i) {
+        if (password[i] < MIN_CODE || password[i] > MAX_CODE) {
+            return false;
+        }
     }
 
     bool has_lower = false;
@@ -25,27 +24,18 @@ bool ValidatePassword(const std::string& password) {
     bool has_digit = false;
     bool has_other = false;
     for (size_t i = 0; i < password.size(); ++i) {
-        has_upper |= isupper(password[i]);
-        has_lower |= islower(password[i]);
-        has_digit |= isdigit(password[i]);
-        has_other |= !isalpha(password[i]) && !isdigit(password[i]);
+        if (isupper(password[i])) {
+            has_upper = true;
+        } else if (islower(password[i])) {
+            has_lower = true;
+        } else if (isdigit(password[i])) {
+            has_digit = true;
+        } else {
+            has_other = true;
+        }
     }
 
-    int counter = 0;
-    if (has_lower) {
-        counter++;
-    }
-    if (has_upper) {
-        counter++;
-    }
-    if (has_digit) {
-        counter++;
-    }
-    if (has_other) {
-        counter++;
-    }
-
-    if (counter < 3) {
+    if (has_lower + has_upper + has_digit + has_other < 3) {
         return false;
     }
 
