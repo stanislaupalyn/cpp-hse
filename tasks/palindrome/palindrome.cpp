@@ -1,18 +1,21 @@
 #include "palindrome.h"
 
 bool IsPalindrome(const std::string& str) {
-    int right_pointer = static_cast<int>(str.size()) - 1;
-    for (int left_pointer = 0; left_pointer < right_pointer; ++left_pointer) {
-        if (str[left_pointer] == ' ') {
+    if (str.empty()) {
+        return true;
+    }
+    size_t right_index = str.size() - 1;
+    for (size_t left_index = 0; left_index < right_index; ++left_index) {
+        if (str[left_index] == ' ') {
             continue;
         }
-        while (right_pointer > left_pointer && str[right_pointer] == ' ') {
-            --right_pointer;
+        while (right_index > left_index && str[right_index] == ' ') {
+            --right_index;
         }
-        if (str[left_pointer] != str[right_pointer]) {
+        if (str[left_index] != str[right_index]) {
             return false;
         }
-        --right_pointer;
+        --right_index;
     }
     return true;
 }
