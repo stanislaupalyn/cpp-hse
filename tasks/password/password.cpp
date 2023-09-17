@@ -3,18 +3,18 @@
 #include <cctype>
 #include <cstdint>
 
-constexpr char MinCode = 33;
-constexpr char MaxCode = 126;
-constexpr size_t MinLength = 8;
-constexpr size_t MaxLength = 14;
+constexpr char MIN_CODE = 33;   // NOLINT
+constexpr char MAX_CODE = 126;  // NOLINT
+constexpr size_t MIN_LENGTH = 8;  // NOLINT
+constexpr size_t MAX_LENGTH = 14;  // NOLINT
 
 bool ValidatePassword(const std::string& password) {
-    if (password.size() < MinLength || password.size() > MaxLength) {
+    if (password.size() < MIN_LENGTH || password.size() > MAX_LENGTH) {
         return false;
     }
 
     for (size_t i = 0; i < password.size(); ++i) {
-        if (password[i] < MinCode || password[i] > MaxCode) {
+        if (password[i] < MIN_CODE || password[i] > MAX_CODE) {
             return false;
         }
     }
