@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-constexpr int32_t ONE_HUNDRED = 100;  // NOLINT
+constexpr int32_t ONE_HUNDRED = 100;   // NOLINT
 constexpr int32_t FOUR_HUNDRED = 400;  // NOLINT
 
 bool IsLeap(int32_t year) {
