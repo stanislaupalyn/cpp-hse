@@ -1,8 +1,10 @@
 #include "is_leap.h"
 
-const int ONE_HUNDRED = 100;
-const int FOUR_HUNDRED = 400;
+#include <cstdint>
 
-bool IsLeap(int year) {
+constexpr int32_t ONE_HUNDRED = 100;
+constexpr int32_t FOUR_HUNDRED = 400;
+
+bool IsLeap(int32_t year) {
     return (year % 4 == 0 && year % ONE_HUNDRED != 0) || year % FOUR_HUNDRED == 0;
 }
