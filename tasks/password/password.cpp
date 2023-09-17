@@ -4,7 +4,7 @@
 #include <cstdint>
 
 constexpr char MIN_CODE = 33;   // NOLINT
-constexpr char MAX_CODE = 126;   // NOLINT
+constexpr char MAX_CODE = 126;  // NOLINT
 constexpr size_t MIN_LENGTH = 8;  // NOLINT
 constexpr size_t MAX_LENGTH = 14;  // NOLINT
 
