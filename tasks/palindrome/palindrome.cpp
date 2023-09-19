@@ -6,8 +6,8 @@ bool IsPalindrome(const std::string& str) {
     if (str.empty()) {
         return true;
     }
-    int32_t right_index = static_cast<int32_t>(str.size()) - 1;
-    for (int32_t left_index = 0; left_index < right_index; ++left_index) {
+    size_t right_index = str.size() - 1;
+    for (size_t left_index = 0; left_index < right_index && ~right_index; ++left_index) {
         if (str[left_index] == ' ') {
             continue;
         }
