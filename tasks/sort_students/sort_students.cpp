@@ -14,7 +14,7 @@ bool operator<(const Date& lhs, const Date& rhs) {
 }
 
 bool operator==(const Date& lhs, const Date& rhs) {
-    return lhs.year == rhs.year && lhs.month == rhs.month && lhs.day == rhs.day;
+    return std::tie(lhs.year, lhs.month, lhs.day) == std::tie(rhs.year, rhs.month, rhs.day);
 }
 
 bool operator!=(const Date& lhs, const Date& rhs) {
@@ -22,26 +22,19 @@ bool operator!=(const Date& lhs, const Date& rhs) {
 }
 
 void SortStudents(std::vector<Student>& students, SortKind sortKind) {
-    if (sortKind == SortKind::Name) {
-        sort(students.begin(), students.end(), [](const Student& lhs, const Student& rhs) {
-            if (lhs.last_name != rhs.last_name) {
-                return lhs.last_name < rhs.last_name;
-            }
-            if (lhs.name != rhs.name) {
-                return lhs.name < rhs.name;
-            }
-            return lhs.birth_date < rhs.birth_date;
-        });
-    }
-    if (sortKind == SortKind::Date) {
-        sort(students.begin(), students.end(), [](const Student& lhs, const Student& rhs) {
-            if (lhs.birth_date != rhs.birth_date) {
-                return lhs.birth_date < rhs.birth_date;
-            }
-            if (lhs.last_name != rhs.last_name) {
-                return lhs.last_name < rhs.last_name;
-            }
-            return lhs.name < rhs.name;
-        });
+    switch (sortKind) {
+        case SortKind::Name:
+            sort(students.begin(), students.end(), [](const Student& lhs, const Student& rhs) {
+                return std::tie(lhs.last_name, lhs.name, lhs.birth_date) <
+                       std::tie(rhs.last_name, rhs.name, rhs.birth_date);
+            });
+            break;
+
+        case SortKind::Date:
+            sort(students.begin(), students.end(), [](const Student& lhs, const Student& rhs) {
+                return std::tie(lhs.birth_date, lhs.last_name, lhs.name) <
+                       std::tie(rhs.birth_date, rhs.last_name, rhs.name);
+            });
+            break;
     }
 }
