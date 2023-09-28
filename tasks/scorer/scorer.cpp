@@ -23,10 +23,12 @@ ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
         switch (current_event.event_type) {
             case EventType::CheckSuccess:
                 status_of[{current_event.student_name, current_event.task_name}].is_last_success = true;
+                status_of[{current_event.student_name, current_event.task_name}].is_merge_request_closed = true;                
                 break;
 
             case EventType::CheckFailed:
                 status_of[{current_event.student_name, current_event.task_name}].is_last_success = false;
+                status_of[{current_event.student_name, current_event.task_name}].is_merge_request_closed = true;
                 break;
 
             case EventType::MergeRequestClosed:
