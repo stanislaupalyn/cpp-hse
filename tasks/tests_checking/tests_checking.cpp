@@ -5,7 +5,7 @@
 std::vector<std::string> StudentsOrder(const std::vector<StudentAction>& student_actions,
                                        const std::vector<size_t>& queries) {
     std::deque<std::string> order;
-    for (auto current : student_actions) {
+    for (const auto& current : student_actions) {
         if (current.side == Side::Top) {
             order.push_front(current.name);
         } else {
@@ -14,7 +14,7 @@ std::vector<std::string> StudentsOrder(const std::vector<StudentAction>& student
     }
 
     std::vector<std::string> answer;
-    for (auto index : queries) {
+    for (const auto& index : queries) {
         answer.push_back(order[index - 1]);
     }
     return answer;
