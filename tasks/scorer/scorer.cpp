@@ -36,7 +36,8 @@ ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
                 if (status_of[{current_event.student_name, current_event.task_name}].opened_merge_requests < 0) {
                     status_of[{current_event.student_name, current_event.task_name}].opened_merge_requests = 0;
                 }
-                // assert((status_of[{current_event.student_name, current_event.task_name}].opened_merge_requests) >= 0);
+                // assert((status_of[{current_event.student_name, current_event.task_name}].opened_merge_requests) >=
+                // 0);
                 break;
 
             case EventType::MergeRequestOpen:
