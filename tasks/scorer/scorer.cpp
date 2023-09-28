@@ -4,7 +4,7 @@
 
 struct ProblemStatus {
     bool is_last_success = false;
-    bool is_merge_request_closed = true;
+    int opened_merge_requests = 0;
 };
 
 ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
@@ -32,20 +32,20 @@ ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
                 break;
 
             case EventType::MergeRequestClosed:
-                assert(!(status_of[{current_event.student_name, current_event.task_name}].is_merge_request_closed));
-                status_of[{current_event.student_name, current_event.task_name}].is_merge_request_closed = true;
+                // assert(!(status_of[{current_event.student_name, current_event.task_name}].is_merge_request_closed));
+                status_of[{current_event.student_name, current_event.task_name}].opened_merge_requests++;
                 break;
 
             case EventType::MergeRequestOpen:
-                assert((status_of[{current_event.student_name, current_event.task_name}].is_merge_request_closed));
-                status_of[{current_event.student_name, current_event.task_name}].is_merge_request_closed = false;
+                // assert((status_of[{current_event.student_name, current_event.task_name}].is_merge_request_closed));
+                status_of[{current_event.student_name, current_event.task_name}].opened_merge_requests--;
                 break;
         }
     }
 
     ScoreTable result;
     for (const auto& problem : status_of) {
-        if (problem.second.is_last_success && problem.second.is_merge_request_closed) {
+        if (problem.second.is_last_success && problem.second.opened_merge_requests == 0) {
             result[problem.first.first].insert(problem.first.second);
         }
     }
