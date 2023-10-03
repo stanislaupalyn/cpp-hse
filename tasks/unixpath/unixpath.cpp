@@ -1,6 +1,7 @@
 #include "unixpath.h"
 
 #include <algorithm>
+#include <cassert>
 #include <cstdint>
 #include <string>
 
