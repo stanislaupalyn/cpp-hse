@@ -32,7 +32,7 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
         }
     }
 
-    if (normalized_path.size() == 0) {
+    if (normalized_path.empty()) {
         normalized_path = "/";
     }
 
