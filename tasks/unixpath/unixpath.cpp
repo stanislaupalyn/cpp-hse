@@ -5,54 +5,48 @@
 #include <cstdint>
 #include <string>
 
+void DeleteDoubleSlashes(std::string& path) {
+    std::string new_path;
+    for (size_t i = 0; i < path.size(); ++i) {
+        if (i > 0 && path[i] == '/' && path[i - 1] == '/') {
+            continue;
+        }
+        new_path += path[i];
+    }
+    path = new_path;
+}
+
 std::string NormalizePath(std::string_view current_working_dir, std::string_view path) {
-    std::string normalized_path{path.begin(), path.end()};
-    for (size_t index = 0; index < normalized_path.size(); ++index) {
-        if (normalized_path[index] == '.' &&
-            (index == normalized_path.size() - 1 || normalized_path[index + 1] != '.') &&
-            (index == 0 || normalized_path[index - 1] != '.')) {
-            normalized_path.erase(index, 1);
-            --index;
+    std::string full_path{path};
+    if (path[0] != '/') {
+        full_path = static_cast<std::string>(current_working_dir) + "/" + full_path;
+    }
+    full_path += "/";
+    DeleteDoubleSlashes(full_path);
+
+    std::string current_path;
+    for (size_t i = 0; i < full_path.size(); ++i) {
+        if (full_path[i] == '/') {
+            size_t next_slash = full_path.find('/', i + 1);
+            std::string token = full_path.substr(i + 1, next_slash - i - 1);
+            if (token == "..") {
+                while (current_path.size() > 1 && current_path.back() != '/') {
+                    current_path.pop_back();
+                }
+            } else {
+                if (token != ".") {
+                    current_path += "/";
+                    current_path += token;
+                }
+            }
+            i = next_slash - 1;
         }
     }
 
-    int32_t moves_up = 0;
-    for (size_t index = 0; index + 1 < normalized_path.size(); ++index) {
-        if (normalized_path[index] == '.' && normalized_path[index + 1] == '.') {
-            ++moves_up;
-            normalized_path.erase(index, 2);
-            --index;
-        }
+    DeleteDoubleSlashes(current_path);
+    if (current_path.size() > 1 && current_path.back() == '/') {
+        current_path.pop_back();
     }
 
-    for (size_t index = 0; index + 1 < normalized_path.size(); ++index) {
-        if (normalized_path[index] == '/' && normalized_path[index + 1] == '/') {
-            normalized_path.erase(index, 1);
-            --index;
-        }
-    }
-
-    if (normalized_path.empty()) {
-        normalized_path = "/";
-    }
-
-    for (size_t index = current_working_dir.size() - 1; ~index; --index) {
-        if (current_working_dir[index] == '/') {
-            --moves_up;
-        }
-        if (moves_up == 0) {
-            assert(normalized_path[0] == '/');
-            normalized_path = static_cast<std::string>(current_working_dir.substr(0, index)) + normalized_path;
-            break;
-        }
-    }
-
-    if (normalized_path.back() == '/') {
-        normalized_path.pop_back();
-    }
-    if (normalized_path.front() != '/') {
-        normalized_path = "/" + normalized_path;
-    }
-
-    return normalized_path;
+    return current_path;
 }
