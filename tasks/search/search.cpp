@@ -86,8 +86,7 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
         }
 
         for (const std::string_view query_word : query_words) {
-            if (number_of_lines_with_word.find(query_word) == number_of_lines_with_word.end() ||
-                number_of_word.find(query_word) == number_of_word.end()) {
+            if (number_of_word[query_word] == 0) {
                 continue;
             }
             double tf_value = static_cast<double>(number_of_word[query_word]) / static_cast<double>(line_words.size());
