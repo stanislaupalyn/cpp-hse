@@ -95,6 +95,9 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
 
     std::vector<std::string_view> result;
     for (size_t i = 0; i < std::min(results_count, lines.size()); ++i) {
+        if (line_value[order_lines[i]] == 0) {
+            break;
+        }
         result.emplace_back(lines[order_lines[i]]);
     }
 
