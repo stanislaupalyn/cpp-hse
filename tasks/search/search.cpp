@@ -35,7 +35,6 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
     std::sort(query_words.begin(), query_words.end());
     query_words.erase(unique(query_words.begin(), query_words.end()), query_words.end());
 
-
     size_t number_lines = 0;
     std::map<std::string, size_t> number_of_word;
     std::map<std::string, size_t> number_of_lines_with_word;
@@ -81,7 +80,7 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
 
         for (const std::string_view query_word : query_words) {
             std::string word = GetNormalizedWord(query_word);
-            
+
             double tf_value = static_cast<double>(number_of_word[word]) / static_cast<double>(line_words.size());
             double idf_value = static_cast<double>(number_of_lines_with_word[word]) / static_cast<double>(number_lines);
             line_value[i] += tf_value * std::log(1 / idf_value);
@@ -91,9 +90,8 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
     std::vector<size_t> order_lines(lines.size());
     std::iota(order_lines.begin(), order_lines.end(), 0);
 
-    std::sort(order_lines.begin(), order_lines.end(), [&line_value](size_t i, size_t j) {
-        return line_value[i] > line_value[j];
-    });    
+    std::sort(order_lines.begin(), order_lines.end(),
+              [&line_value](size_t i, size_t j) { return line_value[i] > line_value[j]; });
 
     std::vector<std::string_view> result;
     for (size_t i = 0; i < std::min(results_count, lines.size()); ++i) {
