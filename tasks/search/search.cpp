@@ -83,7 +83,7 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
             
             double tf_value = static_cast<double>(number_of_word[word]) / static_cast<double>(line_words.size());
             double idf_value = static_cast<double>(number_of_lines_with_word[word]) / static_cast<double>(number_lines);
-            line_value[i] += tf_value * log(1 / idf_value);
+            line_value[i] += tf_value * std::log(1 / idf_value);
         }
     }
 
