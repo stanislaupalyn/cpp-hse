@@ -29,8 +29,6 @@ std::string GetNormalizedWord(const std::string_view word) {
     return result;
 }
 
-constexpr double EPS = 1e-7;
-
 std::vector<std::string_view> Search(std::string_view text, std::string_view query, size_t results_count) {
     std::vector<std::string_view> query_words = GetWords(query);
 
@@ -98,7 +96,7 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
 
     std::vector<std::string_view> result;
     for (size_t i = 0; i < std::min(results_count, lines.size()); ++i) {
-        if (std::abs(line_value[order_lines[i]]) < EPS) {
+        if (line_value[order_lines[i]] == 0) {
             break;
         }
         result.emplace_back(lines[order_lines[i]]);
