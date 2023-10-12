@@ -91,7 +91,7 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
     std::iota(order_lines.begin(), order_lines.end(), 0);
 
     std::stable_sort(order_lines.begin(), order_lines.end(),
-              [&line_value](size_t i, size_t j) { return line_value[i] > line_value[j]; });
+                     [&line_value](size_t i, size_t j) { return line_value[i] > line_value[j]; });
 
     std::vector<std::string_view> result;
     for (size_t i = 0; i < std::min(results_count, lines.size()); ++i) {
