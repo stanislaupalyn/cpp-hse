@@ -29,7 +29,7 @@ std::string GetNormalizedWord(const std::string_view word) {
     return result;
 }
 
-std::vector<std::string_view> Search(const std::string_view text, const std::string_view query, int32_t results_count) {
+std::vector<std::string_view> Search(const std::string_view text, const std::string_view query, size_t results_count) {
     std::vector<std::string_view> query_words = GetWords(query);
 
     std::sort(query_words.begin(), query_words.end());
@@ -97,7 +97,7 @@ std::vector<std::string_view> Search(const std::string_view text, const std::str
                      [&line_value](int32_t i, int32_t j) { return line_value[i] > line_value[j]; });
 
     std::vector<std::string_view> result;
-    for (int32_t i = 0; i < std::min(results_count, static_cast<int32_t>(lines.size())); ++i) {
+    for (int32_t i = 0; i < std::min(results_count, lines.size()); ++i) {
         if (line_value[order_lines[i]] == 0) {
             break;
         }
