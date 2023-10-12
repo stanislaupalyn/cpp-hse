@@ -1,5 +1,6 @@
 #include "search.h"
 
+#include <cmath>
 #include <map>
 #include <numeric>
 #include <sstream>
