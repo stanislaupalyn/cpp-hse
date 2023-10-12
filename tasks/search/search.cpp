@@ -43,11 +43,13 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
     std::vector<std::string_view> lines;
 
     for (size_t i = 0; i < text.size(); ++i) {
+        if (text[i] == '\n') {
+            continue;
+        }
         size_t right_index = i;
         while (right_index < text.size() && text[right_index] != '\n') {
             ++right_index;
         }
-
         std::string_view line = text.substr(i, right_index - i);
         i = right_index;
 
