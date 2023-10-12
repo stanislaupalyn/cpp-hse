@@ -35,7 +35,7 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
     std::vector<std::string_view> query_words = GetWords(query);
 
     std::sort(query_words.begin(), query_words.end());
-    query_words.erase(unique(query_words.begin(), query_words.end()), query_words.end());
+    query_words.erase(std::unique(query_words.begin(), query_words.end()), query_words.end());
 
     size_t number_lines = 0;
     std::map<std::string, size_t> number_of_word;
@@ -54,8 +54,11 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
         i = right_index;
 
         std::vector<std::string_view> line_words = GetWords(line);
+
+        std::sort(line_words.begin(), line_words.end());
+        line_words.erase(std::unique(line_words.begin(), line_words.end()), line_words.end());
+
         if (line_words.empty()) {
-            ++number_lines;
             continue;
         }
         lines_words.emplace_back(line_words);
