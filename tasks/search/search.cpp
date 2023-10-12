@@ -56,7 +56,6 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
         std::vector<std::string_view> line_words = GetWords(line);
 
         if (line_words.empty()) {
-            ++number_lines;
             continue;
         }
         lines_words.emplace_back(line_words);
