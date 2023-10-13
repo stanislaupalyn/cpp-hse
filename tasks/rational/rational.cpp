@@ -196,6 +196,6 @@ std::ostream& operator<<(std::ostream& os, const Rational& ratio) {
     os << ratio.GetNumerator();
     if (ratio.GetDenominator() != 1) {
         os << "/" << ratio.GetDenominator();
-    } 
+    }
     return os;
 }
