@@ -26,25 +26,36 @@ int Rational::GetDenominator() const {
 
 void Rational::SetNumerator(int value) {
     this->numer_ = value;
+    int greatest_common_divisor = std::gcd(GetNumerator(), GetDenominator());
+    this->numer_ /= greatest_common_divisor;
+    this->denom_ /= greatest_common_divisor;
+    if (this->denom_ < 0) {
+        this->numer_ *= -1;
+        this->denom_ *= -1;
+    }
 }
 
 void Rational::SetDenominator(int value) {
+    if (value == 0) {
+        throw RationalDivisionByZero{};
+    }
     this->denom_ = value;
+    int greatest_common_divisor = std::gcd(GetNumerator(), GetDenominator());
+    this->numer_ /= greatest_common_divisor;
+    this->denom_ /= greatest_common_divisor;
+    if (this->denom_ < 0) {
+        this->numer_ *= -1;
+        this->denom_ *= -1;
+    }
 }
 
 Rational& operator+=(Rational& lhs, const Rational& rhs) {
-    int new_denom = std::lcm(lhs.GetDenominator(), rhs.GetDenominator());
-    lhs.Set(
-        lhs.GetNumerator() * new_denom / lhs.GetDenominator() + rhs.GetNumerator() * new_denom / rhs.GetDenominator(),
-        new_denom);
+    lhs.Set(lhs.GetNumerator() * rhs.GetDenominator() + rhs.GetNumerator() * lhs.GetDenominator(), lhs.GetDenominator() * rhs.GetDenominator());
     return lhs;
 }
 
 Rational& operator*=(Rational& lhs, const Rational& rhs) {
-    int new_numerator = lhs.GetNumerator() * rhs.GetNumerator();
-    int new_denominator = lhs.GetDenominator() * rhs.GetDenominator();
-    int greatest_common_divisor = std::gcd(new_numerator, new_denominator);
-    lhs.Set(new_numerator / greatest_common_divisor, new_denominator / greatest_common_divisor);
+    lhs.Set(lhs.GetNumerator() * rhs.GetNumerator(), lhs.GetDenominator() * rhs.GetDenominator());
     return lhs;
 }
 
@@ -71,13 +82,6 @@ std::istream& operator>>(std::istream& is, Rational& ratio) {
 
 // WTF types
 void Rational::Set(int64_t numer, int64_t denom) {
-    int64_t greatest_common_divisor = std::gcd(numer, denom);
-    numer /= greatest_common_divisor;
-    denom /= greatest_common_divisor;
-    if (denom < 0) {
-        numer *= -1;
-        denom *= -1;
-    }
     SetNumerator(static_cast<int>(numer));
     SetDenominator(static_cast<int>(denom));
 }
@@ -87,7 +91,9 @@ Rational operator+(const Rational& ratio) {
 }
 
 Rational operator-(const Rational& ratio) {
-    return Rational(-ratio.GetNumerator(), ratio.GetDenominator());
+    Rational result = ratio;
+    result.SetNumerator(-result.GetNumerator());
+    return result;
 }
 
 Rational& operator-=(Rational& lhs, const Rational& rhs) {
@@ -140,27 +146,21 @@ Rational operator--(Rational& ratio, int) {
 }
 
 bool operator<(const Rational& lhs, const Rational& rhs) {
-    int new_denom = std::lcm(lhs.GetDenominator(), rhs.GetDenominator());
-    return lhs.GetNumerator() * new_denom / lhs.GetDenominator() <
-           rhs.GetNumerator() * new_denom / rhs.GetDenominator();
+    return lhs.GetNumerator() * rhs.GetDenominator() <
+           rhs.GetNumerator() * lhs.GetDenominator();
 }
 
 bool operator>(const Rational& lhs, const Rational& rhs) {
-    int new_denom = std::lcm(lhs.GetDenominator(), rhs.GetDenominator());
-    return lhs.GetNumerator() * new_denom / lhs.GetDenominator() >
-           rhs.GetNumerator() * new_denom / rhs.GetDenominator();
+    return lhs.GetNumerator() * rhs.GetDenominator() <
+           rhs.GetNumerator() * lhs.GetDenominator() && lhs != rhs;
 }
 
 bool operator<=(const Rational& lhs, const Rational& rhs) {
-    int new_denom = std::lcm(lhs.GetDenominator(), rhs.GetDenominator());
-    return lhs.GetNumerator() * new_denom / lhs.GetDenominator() <=
-           rhs.GetNumerator() * new_denom / rhs.GetDenominator();
+    return !(lhs > rhs);
 }
 
 bool operator>=(const Rational& lhs, const Rational& rhs) {
-    int new_denom = std::lcm(lhs.GetDenominator(), rhs.GetDenominator());
-    return lhs.GetNumerator() * new_denom / lhs.GetDenominator() >=
-           rhs.GetNumerator() * new_denom / rhs.GetDenominator();
+    return !(lhs < rhs);
 }
 
 bool operator==(const Rational& lhs, const Rational& rhs) {
