@@ -1,6 +1,8 @@
 #include "rational.h"
 #include <sys/errno.h>
 #include <numeric>
+#include <streambuf>
+#include <sstream>
 #include <tuple>
 
 Rational::Rational() {
@@ -82,13 +84,21 @@ Rational& operator--(Rational& ratio) {
 }
 
 std::istream& operator>>(std::istream& is, Rational& ratio) {
+    std::string token;
+    is >> token;
+
+    std::stringstream stream;
+    stream << token;
     int numer = 0;
-    int denom = 0;
-    is >> numer;
-    char c = 0;
-    is >> c;
-    is >> denom;
+    int denom = 1;
+    stream >> numer;
+    if (!stream.eof()) {
+        char c = 0;
+        stream >> c;
+        stream >> denom;
+    }
     ratio.Set(numer, denom);
+
     return is;
 }
 
