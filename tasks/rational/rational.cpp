@@ -33,6 +33,9 @@ void Rational::SetNumerator(int value) {
         this->numer_ *= -1;
         this->denom_ *= -1;
     }
+    if (this->numer_ == 0) {
+        this->denom_ = 1;
+    }
 }
 
 void Rational::SetDenominator(int value) {
@@ -46,6 +49,9 @@ void Rational::SetDenominator(int value) {
     if (this->denom_ < 0) {
         this->numer_ *= -1;
         this->denom_ *= -1;
+    }
+    if (this->numer_ == 0) {
+        this->denom_ = 1;
     }
 }
 
