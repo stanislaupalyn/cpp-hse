@@ -21,17 +21,17 @@ std::vector<std::string_view> GetWords(const std::string_view line) {
     return words;
 }
 
-std::string GetNormalizedWord(const std::string_view word) {
-    std::string result{word};
-    for (size_t i = 0; i < word.size(); ++i) {
-        result[i] = static_cast<char>(std::tolower(result[i]));
-    }
-    return result;
-}
-
 struct CompareByNormalizedString {
     bool operator()(const std::string_view a, const std::string_view b) const {
-        return GetNormalizedWord(a) < GetNormalizedWord(b);
+        for (size_t i = 0; i < std::min(a.size(), b.size()); ++i) {
+            if (tolower(a[i]) < tolower(b[i])) {
+                return true;
+            }
+            if (tolower(a[i]) > tolower(b[i])) {
+                return false;
+            }
+        }
+        return a.size() < b.size();
     }
 };
 
