@@ -21,7 +21,7 @@ std::vector<std::string_view> GetWords(const std::string_view line) {
     return words;
 }
 
-struct CompareByNormalizedString {
+struct CompareStringsCaseInsensitive {
     bool operator()(const std::string_view a, const std::string_view b) const {
         for (size_t i = 0; i < std::min(a.size(), b.size()); ++i) {
             if (tolower(a[i]) < tolower(b[i])) {
@@ -41,9 +41,8 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
     std::sort(query_words.begin(), query_words.end());
     query_words.erase(std::unique(query_words.begin(), query_words.end()), query_words.end());
 
-    size_t number_lines = 0;
-    std::map<std::string_view, size_t, CompareByNormalizedString> number_of_word;
-    std::map<std::string_view, size_t, CompareByNormalizedString> number_of_lines_with_word;
+    std::map<std::string_view, size_t, CompareStringsCaseInsensitive> number_of_word;
+    std::map<std::string_view, size_t, CompareStringsCaseInsensitive> number_of_lines_with_word;
 
     std::vector<std::vector<std::string_view>> lines_words;
     std::vector<std::string_view> lines;
@@ -65,7 +64,6 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
         lines_words.emplace_back(line_words);
         lines.emplace_back(line);
 
-        ++number_lines;
         number_of_word.clear();
         for (const std::string_view word : line_words) {
             ++number_of_word[word];
@@ -91,7 +89,7 @@ std::vector<std::string_view> Search(std::string_view text, std::string_view que
             }
             double tf_value = static_cast<double>(number_of_word[query_word]) / static_cast<double>(line_words.size());
             double idf_value =
-                static_cast<double>(number_of_lines_with_word[query_word]) / static_cast<double>(number_lines);
+                static_cast<double>(number_of_lines_with_word[query_word]) / static_cast<double>(lines.size());
             line_value[i] += tf_value * std::log(1 / idf_value);
         }
     }
