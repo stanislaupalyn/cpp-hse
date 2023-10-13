@@ -50,7 +50,8 @@ void Rational::SetDenominator(int value) {
 }
 
 Rational& operator+=(Rational& lhs, const Rational& rhs) {
-    lhs.Set(lhs.GetNumerator() * rhs.GetDenominator() + rhs.GetNumerator() * lhs.GetDenominator(), lhs.GetDenominator() * rhs.GetDenominator());
+    lhs.Set(lhs.GetNumerator() * rhs.GetDenominator() + rhs.GetNumerator() * lhs.GetDenominator(),
+            lhs.GetDenominator() * rhs.GetDenominator());
     return lhs;
 }
 
@@ -146,13 +147,11 @@ Rational operator--(Rational& ratio, int) {
 }
 
 bool operator<(const Rational& lhs, const Rational& rhs) {
-    return lhs.GetNumerator() * rhs.GetDenominator() <
-           rhs.GetNumerator() * lhs.GetDenominator();
+    return lhs.GetNumerator() * rhs.GetDenominator() < rhs.GetNumerator() * lhs.GetDenominator();
 }
 
 bool operator>(const Rational& lhs, const Rational& rhs) {
-    return lhs.GetNumerator() * rhs.GetDenominator() <
-           rhs.GetNumerator() * lhs.GetDenominator() && lhs != rhs;
+    return lhs.GetNumerator() * rhs.GetDenominator() < rhs.GetNumerator() * lhs.GetDenominator() && lhs != rhs;
 }
 
 bool operator<=(const Rational& lhs, const Rational& rhs) {
