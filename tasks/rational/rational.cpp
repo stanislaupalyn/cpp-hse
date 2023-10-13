@@ -4,7 +4,8 @@
 #include <tuple>
 
 Rational::Rational() {
-    Rational(0);
+    this->numer_ = 0;
+    this->denom_ = 1;
 }
 
 Rational::Rational(int value) {
@@ -58,13 +59,13 @@ void Rational::SetDenominator(int value) {
 }
 
 Rational& operator+=(Rational& lhs, const Rational& rhs) {
-    lhs.Set(lhs.GetNumerator() * rhs.GetDenominator() + rhs.GetNumerator() * lhs.GetDenominator(),
-            lhs.GetDenominator() * rhs.GetDenominator());
+    lhs.Set(static_cast<int64_t>(lhs.GetNumerator()) * static_cast<int64_t>(rhs.GetDenominator()) + static_cast<int64_t>(rhs.GetNumerator()) * static_cast<int64_t>(lhs.GetDenominator()),
+            static_cast<int64_t>(lhs.GetDenominator()) * static_cast<int64_t>(rhs.GetDenominator()));
     return lhs;
 }
 
 Rational& operator*=(Rational& lhs, const Rational& rhs) {
-    lhs.Set(lhs.GetNumerator() * rhs.GetNumerator(), lhs.GetDenominator() * rhs.GetDenominator());
+    lhs.Set(static_cast<int64_t>(lhs.GetNumerator()) * static_cast<int64_t>(rhs.GetNumerator()), static_cast<int64_t>(lhs.GetDenominator()) * static_cast<int64_t>(rhs.GetDenominator()));
     return lhs;
 }
 
@@ -89,10 +90,20 @@ std::istream& operator>>(std::istream& is, Rational& ratio) {
     return is;
 }
 
-// WTF types
 void Rational::Set(int64_t numer, int64_t denom) {
-    SetNumerator(static_cast<int>(numer));
-    SetDenominator(static_cast<int>(denom));
+    int64_t greatest_common_divisor = std::gcd(numer, denom);
+    numer /= greatest_common_divisor;
+    denom /= greatest_common_divisor;
+
+    this->numer_ = static_cast<int>(numer);
+    this->denom_ = static_cast<int>(denom);
+    if (this->denom_ < 0) {
+        this->numer_ *= -1;
+        this->denom_ *= -1;
+    }
+    if (this->numer_ == 0) {
+        this->denom_ = 1;
+    }
 }
 
 Rational operator+(const Rational& ratio) {
