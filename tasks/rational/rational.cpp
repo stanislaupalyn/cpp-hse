@@ -13,6 +13,8 @@ Rational::Rational(int value) {
 }
 
 Rational::Rational(int numer, int denom) {
+    this->numer_ = 0;
+    this->denom_ = 1;
     Set(numer, denom);
 }
 
@@ -157,7 +159,7 @@ bool operator<(const Rational& lhs, const Rational& rhs) {
 }
 
 bool operator>(const Rational& lhs, const Rational& rhs) {
-    return lhs.GetNumerator() * rhs.GetDenominator() < rhs.GetNumerator() * lhs.GetDenominator() && lhs != rhs;
+    return !(lhs < rhs) && lhs != rhs;
 }
 
 bool operator<=(const Rational& lhs, const Rational& rhs) {
