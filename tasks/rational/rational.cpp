@@ -70,6 +70,13 @@ std::istream& operator>>(std::istream& is, Rational& ratio) {
 
 // WTF types
 void Rational::Set(int64_t numer, int64_t denom) {
+    int64_t greatest_common_divisor = std::gcd(numer, denom);
+    numer /= greatest_common_divisor;
+    denom /= greatest_common_divisor;
+    if (denom < 0) {
+        numer *= -1;
+        denom *= -1;
+    }
     SetNumerator(static_cast<int>(numer));
     SetDenominator(static_cast<int>(denom));
 }
@@ -119,14 +126,16 @@ Rational operator/(const Rational& lhs, const Rational& rhs) {
     return result;
 }
 
-Rational operator++(Rational& ratio, int x) {
-    ratio += x;
-    return ratio;
+Rational operator++(Rational& ratio, int) {
+    Rational old = ratio;
+    ++ratio;
+    return old;
 }
 
-Rational operator--(Rational& ratio, int x) {
-    ratio -= x;
-    return ratio;
+Rational operator--(Rational& ratio, int) {
+    Rational old = ratio;
+    --ratio;
+    return old;
 }
 
 bool operator<(const Rational& lhs, const Rational& rhs) {
@@ -150,7 +159,7 @@ bool operator>=(const Rational& lhs, const Rational& rhs) {
 }
 
 bool operator==(const Rational& lhs, const Rational& rhs) {
-    return std::make_tuple(lhs.GetNumerator(), lhs.GetNumerator()) == std::make_tuple(rhs.GetNumerator(), rhs.GetDenominator());
+    return std::make_tuple(lhs.GetNumerator(), lhs.GetDenominator()) == std::make_tuple(rhs.GetNumerator(), rhs.GetDenominator());
 }
 
 bool operator!=(const Rational& lhs, const Rational& rhs) {
