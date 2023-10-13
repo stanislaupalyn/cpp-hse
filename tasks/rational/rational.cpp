@@ -1,6 +1,7 @@
 #include "rational.h"
 #include <sys/errno.h>
 #include <numeric>
+#include <tuple>
 
 Rational::Rational() {
     Rational(0);
@@ -140,26 +141,31 @@ Rational operator--(Rational& ratio, int) {
 
 bool operator<(const Rational& lhs, const Rational& rhs) {
     int new_denom = std::lcm(lhs.GetDenominator(), rhs.GetDenominator());
-    return lhs.GetNumerator() * new_denom / lhs.GetDenominator() < rhs.GetNumerator() * new_denom / rhs.GetDenominator();
+    return lhs.GetNumerator() * new_denom / lhs.GetDenominator() <
+           rhs.GetNumerator() * new_denom / rhs.GetDenominator();
 }
 
 bool operator>(const Rational& lhs, const Rational& rhs) {
     int new_denom = std::lcm(lhs.GetDenominator(), rhs.GetDenominator());
-    return lhs.GetNumerator() * new_denom / lhs.GetDenominator() > rhs.GetNumerator() * new_denom / rhs.GetDenominator();
+    return lhs.GetNumerator() * new_denom / lhs.GetDenominator() >
+           rhs.GetNumerator() * new_denom / rhs.GetDenominator();
 }
 
 bool operator<=(const Rational& lhs, const Rational& rhs) {
     int new_denom = std::lcm(lhs.GetDenominator(), rhs.GetDenominator());
-    return lhs.GetNumerator() * new_denom / lhs.GetDenominator() <= rhs.GetNumerator() * new_denom / rhs.GetDenominator();
+    return lhs.GetNumerator() * new_denom / lhs.GetDenominator() <=
+           rhs.GetNumerator() * new_denom / rhs.GetDenominator();
 }
 
 bool operator>=(const Rational& lhs, const Rational& rhs) {
     int new_denom = std::lcm(lhs.GetDenominator(), rhs.GetDenominator());
-    return lhs.GetNumerator() * new_denom / lhs.GetDenominator() >= rhs.GetNumerator() * new_denom / rhs.GetDenominator();
+    return lhs.GetNumerator() * new_denom / lhs.GetDenominator() >=
+           rhs.GetNumerator() * new_denom / rhs.GetDenominator();
 }
 
 bool operator==(const Rational& lhs, const Rational& rhs) {
-    return std::make_tuple(lhs.GetNumerator(), lhs.GetDenominator()) == std::make_tuple(rhs.GetNumerator(), rhs.GetDenominator());
+    return std::make_tuple(lhs.GetNumerator(), lhs.GetDenominator()) ==
+           std::make_tuple(rhs.GetNumerator(), rhs.GetDenominator());
 }
 
 bool operator!=(const Rational& lhs, const Rational& rhs) {
