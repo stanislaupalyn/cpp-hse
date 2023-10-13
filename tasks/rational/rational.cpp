@@ -127,9 +127,6 @@ Rational& operator-=(Rational& lhs, const Rational& rhs) {
 }
 
 Rational& operator/=(Rational& lhs, const Rational& rhs) {
-    if (rhs.GetNumerator() == 0) {
-        throw RationalDivisionByZero{};
-    }
     lhs *= Rational(rhs.GetDenominator(), rhs.GetNumerator());
     return lhs;
 }
@@ -196,6 +193,9 @@ bool operator!=(const Rational& lhs, const Rational& rhs) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Rational& ratio) {
-    os << ratio.GetNumerator() << "/" << ratio.GetDenominator();
+    os << ratio.GetNumerator();
+    if (ratio.GetDenominator() != 1) {
+        os << "/" << ratio.GetDenominator();
+    } 
     return os;
 }
