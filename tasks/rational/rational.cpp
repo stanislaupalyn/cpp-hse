@@ -93,6 +93,9 @@ std::istream& operator>>(std::istream& is, Rational& ratio) {
 }
 
 void Rational::Set(int64_t numer, int64_t denom) {
+    if (denom == 0) {
+        throw RationalDivisionByZero{};
+    }
     int64_t greatest_common_divisor = std::gcd(numer, denom);
     numer /= greatest_common_divisor;
     denom /= greatest_common_divisor;
