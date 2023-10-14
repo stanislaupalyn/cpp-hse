@@ -5,41 +5,35 @@
 #include <sstream>
 #include <tuple>
 
-Rational::Rational() {
-    this->numer_ = 0;
-    this->denom_ = 1;
+Rational::Rational() : Rational(0) {
 }
 
-Rational::Rational(int value) {
-    this->numer_ = value;
-    this->denom_ = 1;
+Rational::Rational(int value) : numer_{value}, denom_{1} {
 }
 
-Rational::Rational(int numer, int denom) {
-    this->numer_ = 0;
-    this->denom_ = 1;
+Rational::Rational(int numer, int denom) : Rational() {
     Set(numer, denom);
 }
 
 int Rational::GetNumerator() const {
-    return this->numer_;
+    return numer_;
 }
 
 int Rational::GetDenominator() const {
-    return this->denom_;
+    return denom_;
 }
 
 void Rational::SetNumerator(int value) {
-    this->numer_ = value;
+    numer_ = value;
     int greatest_common_divisor = std::gcd(GetNumerator(), GetDenominator());
-    this->numer_ /= greatest_common_divisor;
-    this->denom_ /= greatest_common_divisor;
-    if (this->denom_ < 0) {
-        this->numer_ *= -1;
-        this->denom_ *= -1;
+    numer_ /= greatest_common_divisor;
+    denom_ /= greatest_common_divisor;
+    if (denom_ < 0) {
+        numer_ *= -1;
+        denom_ *= -1;
     }
-    if (this->numer_ == 0) {
-        this->denom_ = 1;
+    if (numer_ == 0) {
+        denom_ = 1;
     }
 }
 
@@ -47,16 +41,16 @@ void Rational::SetDenominator(int value) {
     if (value == 0) {
         throw RationalDivisionByZero{};
     }
-    this->denom_ = value;
+    denom_ = value;
     int greatest_common_divisor = std::gcd(GetNumerator(), GetDenominator());
-    this->numer_ /= greatest_common_divisor;
-    this->denom_ /= greatest_common_divisor;
-    if (this->denom_ < 0) {
-        this->numer_ *= -1;
-        this->denom_ *= -1;
+    numer_ /= greatest_common_divisor;
+    denom_ /= greatest_common_divisor;
+    if (denom_ < 0) {
+        numer_ *= -1;
+        denom_ *= -1;
     }
-    if (this->numer_ == 0) {
-        this->denom_ = 1;
+    if (numer_ == 0) {
+        denom_ = 1;
     }
 }
 
@@ -110,14 +104,14 @@ void Rational::Set(int64_t numer, int64_t denom) {
     numer /= greatest_common_divisor;
     denom /= greatest_common_divisor;
 
-    this->numer_ = static_cast<int>(numer);
-    this->denom_ = static_cast<int>(denom);
-    if (this->denom_ < 0) {
-        this->numer_ *= -1;
-        this->denom_ *= -1;
+    numer_ = static_cast<int>(numer);
+    denom_ = static_cast<int>(denom);
+    if (denom_ < 0) {
+        numer_ *= -1;
+        denom_ *= -1;
     }
-    if (this->numer_ == 0) {
-        this->denom_ = 1;
+    if (numer_ == 0) {
+        denom_ = 1;
     }
 }
 
