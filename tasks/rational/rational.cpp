@@ -1,4 +1,5 @@
 #include "rational.h"
+
 #include <sys/errno.h>
 #include <numeric>
 #include <streambuf>
