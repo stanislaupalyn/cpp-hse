@@ -6,6 +6,5 @@
 class CommandLineParser {
 
 public:
-    void Hello();
     void Parse(int argc, char* argv[], ApplicationSettings& app_settings);
 };

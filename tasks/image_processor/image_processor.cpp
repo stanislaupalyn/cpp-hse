@@ -1,21 +1,12 @@
 #include <iostream>
 #include "application.h"
 
+// ./image_processor input.txt output.txt -crop 800 600 -gs -blur 0.5
+
 int main(int argc, char* argv[]) {
     Application app;
     app.Config();
     app.Start(argc, argv);
-    
-//    try {
-//         Application app;
-//         // app.Config();
-//         // app.Start(argc, argv);
-//     } catch(const std::exception& e) {
-//         std::cerr << e.what();
-//     } catch(...) {
-//         std::cerr << "unhandled exception code";
-//     }
-// }
     return 0;
 }
 
