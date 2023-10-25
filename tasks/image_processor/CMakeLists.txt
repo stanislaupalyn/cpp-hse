@@ -10,7 +10,10 @@ add_executable(image_processor image_processor.cpp
                application_settings application_settings.cpp
                command_line_parser command_line_parser.cpp
                filter_factory filter_factory.cpp
+               bmp bmp.cpp
                filter filter.cpp
                crop_filter crop_filter.cpp
-               bmp bmp.cpp)
+               grayscale_filter grayscale_filter.cpp
+               negative_filter negative_filter.cpp
+               sharpening_filter sharpening_filter.cpp)
 

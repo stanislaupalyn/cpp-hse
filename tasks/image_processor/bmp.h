@@ -4,18 +4,30 @@
 #include <string>
 #include <fstream>
 
+#pragma pack(1)
+    class RGB {
+        public:
+        uint8_t b;
+        uint8_t g;
+        uint8_t r;
+
+        std::array<double, 3> GetNormalized() const {
+            return {r / MAX_COLOR_VALUE, g / MAX_COLOR_VALUE, b / MAX_COLOR_VALUE};
+        }
+        void SetFromNormalized(double r_norm, double g_norm, double b_norm) {
+            r = static_cast<uint8_t>(round(MAX_COLOR_VALUE * r_norm));
+            g = static_cast<uint8_t>(round(MAX_COLOR_VALUE * g_norm));
+            b = static_cast<uint8_t>(round(MAX_COLOR_VALUE * b_norm));
+        }
+        private:
+        static constexpr double MAX_COLOR_VALUE = 255.0; // NOLINT
+    };
+#pragma options align = reset
+
 class BMP {
 public:
     static const uint16_t BMP_SIGNATURE = 0x4D42;  // BM
     static const uint16_t BMP_BITS_PER_PIXEL = 24;
-
-#pragma pack(1)
-    struct RGB {
-        uint8_t b;
-        uint8_t g;
-        uint8_t r;
-    };
-#pragma options align = reset
 
 #pragma pack(1)
     struct BMPHeader {

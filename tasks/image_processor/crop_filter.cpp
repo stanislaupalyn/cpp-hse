@@ -10,7 +10,7 @@ void CropFilter::Apply(BMP &bmp) {
     }
 
     if (bmp.GetWidth() > width_) {
-        std::vector<BMP::RGB> new_data;
+        std::vector<RGB> new_data;
 
         for (size_t row = 0; row < bmp.GetHeight(); ++row) {
             for (size_t col = 0; col < width_; ++col) {

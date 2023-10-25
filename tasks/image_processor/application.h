@@ -2,10 +2,13 @@
 
 #include "command_line_parser.h"
 #include "filter_factory.h"
-#include "filter.h"
-#include "crop_filter.h"
 #include "application_settings.h"
 #include "bmp.h"
+
+#include "filter.h"
+#include "crop_filter.h"
+#include "grayscale_filter.h"
+#include "negative_filter.h"
 
 class Application {
 private:
