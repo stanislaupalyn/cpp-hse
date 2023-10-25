@@ -6,9 +6,10 @@ void Application::Config() {
     f_factory_.AddProducer("gs", ProduceGrayscaleFilter);
     f_factory_.AddProducer("neg", ProduceNegativeFilter);
     f_factory_.AddProducer("sharp", ProduceSharpeningFilter);
+    f_factory_.AddProducer("edge", ProduceEdgeDetectionFilter);
 }
 
-// ./image_processor input.txt output.txt -crop 100 100 -gs -neg -sharp -blur 0.5
+// ./image_processor input.txt output.txt -crop 100 100 -gs -neg -sharp -edge 0.5 -blur 0.5
 
 void Application::Start(int argc, char** argv) {
     try {
@@ -16,7 +17,7 @@ void Application::Start(int argc, char** argv) {
         
         BMP bmp;
         bmp.ReadFromFile("./INPUT.bmp");
-        Filter* filter = f_factory_.GetProducer("sharp")(app_settings_.filters_settings_[3]);
+        Filter* filter = f_factory_.GetProducer("edge")(app_settings_.filters_settings_[4]);
         filter->Apply(bmp);
         bmp.WriteToFile("./OUTPUT.bmp");
         

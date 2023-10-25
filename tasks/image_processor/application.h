@@ -9,6 +9,7 @@
 #include "crop_filter.h"
 #include "grayscale_filter.h"
 #include "negative_filter.h"
+#include "edge_detection_filter.h"
 
 class Application {
 private:

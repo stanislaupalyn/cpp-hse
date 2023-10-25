@@ -15,5 +15,6 @@ add_executable(image_processor image_processor.cpp
                crop_filter crop_filter.cpp
                grayscale_filter grayscale_filter.cpp
                negative_filter negative_filter.cpp
-               sharpening_filter sharpening_filter.cpp)
+               sharpening_filter sharpening_filter.cpp
+               edge_detection_filter edge_detection_filter.cpp)
 
