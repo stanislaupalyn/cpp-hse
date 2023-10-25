@@ -16,5 +16,6 @@ add_executable(image_processor image_processor.cpp
                grayscale_filter grayscale_filter.cpp
                negative_filter negative_filter.cpp
                sharpening_filter sharpening_filter.cpp
-               edge_detection_filter edge_detection_filter.cpp)
+               edge_detection_filter edge_detection_filter.cpp
+               pipeline pipeline.cpp)
 
