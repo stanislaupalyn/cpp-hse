@@ -11,6 +11,8 @@
 #include "grayscale_filter.h"
 #include "negative_filter.h"
 #include "edge_detection_filter.h"
+#include "gaussian_blur_filter.h"
+
 #include "bmp_image_converter.h"
 
 #include <stdexcept>

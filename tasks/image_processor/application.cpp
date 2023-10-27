@@ -6,6 +6,7 @@ void Application::Config() {
     f_factory_.AddProducer("neg", ProduceNegativeFilter);
     f_factory_.AddProducer("sharp", ProduceSharpeningFilter);
     f_factory_.AddProducer("edge", ProduceEdgeDetectionFilter);
+    f_factory_.AddProducer("blur", ProduceGaussianBlurFilter);
 }
 
 // ./image_processor INPUT.bmp OUTPUT.bmp -crop 1500 1500 -gs
