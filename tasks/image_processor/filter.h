@@ -1,6 +1,6 @@
 #pragma once
 
-#include "bmp.h"
+#include "image.h"
 #include <string>
 
 struct FilterSettings {
@@ -11,5 +11,5 @@ struct FilterSettings {
 class Filter {
     public:
     virtual ~Filter() = default;
-    virtual void Apply(BMP& bmp) = 0;
+    virtual void Apply(Image& bmp) = 0;
 };

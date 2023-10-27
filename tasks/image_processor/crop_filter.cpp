@@ -1,25 +1,23 @@
 #include "crop_filter.h"
-#include <stdexcept>
-#include "filter.h"
 
-void CropFilter::Apply(BMP &bmp) {
-    if (bmp.GetHeight() > height_) {
-        int32_t extra = bmp.GetHeight() - static_cast<int32_t>(height_);
-        bmp.GetHeight() = static_cast<int32_t>(height_);
-        bmp.GetData().erase(bmp.GetData().begin(), bmp.GetData().begin() + extra * bmp.GetWidth());
+void CropFilter::Apply(Image& image) {
+    if (image.GetHeight() > height_) {
+        size_t extra = image.GetHeight() - height_;
+        image.GetHeight() = height_;
+        image.GetData().erase(image.GetData().begin(), image.GetData().begin() + static_cast<int32_t>(extra) * static_cast<int32_t>(image.GetWidth()));
     }
 
-    if (bmp.GetWidth() > width_) {
-        std::vector<RGB> new_data;
+    if (image.GetWidth() > width_) {
+        std::vector<RGBReal> new_data;
 
-        for (size_t row = 0; row < bmp.GetHeight(); ++row) {
+        for (size_t row = 0; row < image.GetHeight(); ++row) {
             for (size_t col = 0; col < width_; ++col) {
-                new_data.push_back(bmp(row, col));
+                new_data.push_back(image(row, col));
             }
         }
 
-        bmp.GetWidth() = static_cast<int32_t>(width_);
-        bmp.GetData() = new_data;
+        image.GetWidth() = static_cast<int32_t>(width_);
+        image.GetData() = new_data;
     }
 }
 

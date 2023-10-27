@@ -1,11 +1,12 @@
 #pragma once
 
+#include <stdexcept>
 #include "filter.h"
 
 class CropFilter : public Filter {
     public:
     CropFilter(size_t width, size_t height) : width_(width), height_(height) { }
-    void Apply(BMP &bmp) override;
+    void Apply(Image &image) override;
 
     protected:
     size_t width_;

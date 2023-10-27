@@ -11,6 +11,13 @@
 #include "grayscale_filter.h"
 #include "negative_filter.h"
 #include "edge_detection_filter.h"
+#include "bmp_image_converter.h"
+
+#include <stdexcept>
+#include "sharpening_filter.h"
+
+#include "rgb_color.h"
+#include "image.h"
 
 class Application {
 private:
@@ -18,6 +25,7 @@ private:
     CommandLineParser cl_parser_;
     FilterFactory f_factory_;
     Pipeline pipeline_;
+    BMPImageConverter bmp_image_converter_;
 public:
     void Config();
     void Start(int argc, char* argv[]);

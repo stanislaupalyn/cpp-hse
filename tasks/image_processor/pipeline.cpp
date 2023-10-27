@@ -6,8 +6,8 @@ Pipeline::~Pipeline() {
     }
 }
 
-void Pipeline::ApplyPipeline(BMP& bmp) {
+void Pipeline::ApplyPipeline(Image& image) {
     for (Filter* filter : filters_) {
-        filter->Apply(bmp);
+        filter->Apply(image);
     }
 }

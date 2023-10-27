@@ -6,7 +6,7 @@ class GrayscaleFilter : public Filter {
 public:
     GrayscaleFilter() {
     }
-    void Apply(BMP& bmp) override;
+    void Apply(Image& bmp) override;
 
 protected:
     static constexpr double RED_COEF = 0.299;    // NOLINT
