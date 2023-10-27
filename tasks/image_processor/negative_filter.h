@@ -6,7 +6,7 @@ class NegativeFilter : public Filter {
 public:
     NegativeFilter() {
     }
-    void Apply(Image& bmp) override;
+    void Apply(Image& image) override;
 
 protected:
 };

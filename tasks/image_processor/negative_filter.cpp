@@ -1,12 +1,11 @@
 #include "negative_filter.h"
 
-void NegativeFilter::Apply(Image &bmp) {
-    // for (size_t row = 0; row < bmp.GetHeight(); ++row) {
-    //     for (size_t col = 0; col < bmp.GetWidth(); ++col) {
-    //         std::array<double, 3> color = bmp(row, col).GetNormalized();
-    //         bmp(row, col).SetFromNormalized(1 - color[0], 1 - color[1], 1 - color[2]);
-    //     }
-    // }
+void NegativeFilter::Apply(Image &image) {
+    for (size_t row = 0; row < image.GetHeight(); ++row) {
+        for (size_t col = 0; col < image.GetWidth(); ++col) {
+            image(row, col) = {1.0 - image(row, col).b_, 1.0 - image(row, col).g_, 1.0 - image(row, col).r_};
+        }
+    }
 }
 
 Filter* ProduceNegativeFilter(const FilterSettings& filter_settings) {

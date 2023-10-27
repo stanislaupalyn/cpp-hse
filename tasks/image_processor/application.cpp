@@ -8,7 +8,7 @@ void Application::Config() {
     f_factory_.AddProducer("edge", ProduceEdgeDetectionFilter);
 }
 
-// ./image_processor INPUT.bmp OUTPUT.bmp -sharp -crop 1500 1500
+// ./image_processor INPUT.bmp OUTPUT.bmp -crop 1500 1500 -gs
 
 void Application::Start(int argc, char** argv) {
     try {

@@ -6,7 +6,7 @@ class EdgeDetectionFilter : public Filter {
 public:
     explicit EdgeDetectionFilter(double threshold) : threshold_{threshold} {
     }
-    void Apply(Image& bmp) override;
+    void Apply(Image& image) override;
 
 protected:
     static constexpr double FILTER_MATRIX[3][3] = { // NOLINT

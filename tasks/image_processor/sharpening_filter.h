@@ -6,7 +6,7 @@ class SharpeningFilter : public Filter {
 public:
     SharpeningFilter() {
     }
-    void Apply(Image& bmp) override;
+    void Apply(Image& image) override;
 
 protected:
     static constexpr double FILTER_MATRIX[3][3] = { // NOLINT
