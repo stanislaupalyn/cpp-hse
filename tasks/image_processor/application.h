@@ -1,5 +1,7 @@
 #pragma once
 
+#include <chrono>
+
 #include "command_line_parser.h"
 #include "filter_factory.h"
 #include "application_settings.h"
@@ -20,6 +22,7 @@
 
 #include "rgb_color.h"
 #include "image.h"
+
 
 class Application {
 private:
