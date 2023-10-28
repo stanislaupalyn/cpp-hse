@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stdexcept>
+
 #include "filter.h"
 
 class NegativeFilter : public Filter {

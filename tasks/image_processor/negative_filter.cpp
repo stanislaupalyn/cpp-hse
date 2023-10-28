@@ -10,10 +10,10 @@ void NegativeFilter::Apply(Image& image) {
 
 Filter* ProduceNegativeFilter(const FilterSettings& filter_settings) {
     if (filter_settings.name_ != "neg") {
-        throw std::logic_error("Trying to produce filter with another filter settings");
+        throw std::runtime_error("Trying to produce filter with another filter settings");
     }
     if (!filter_settings.arguments_.empty()) {
-        throw std::logic_error("Wrong number of arguments for this filter");
+        throw std::runtime_error("Wrong number of arguments for this filter");
     }
     Filter* filter_ptr = new NegativeFilter();
     return filter_ptr;

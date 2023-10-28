@@ -1,5 +1,8 @@
 #pragma once
 
+#include <algorithm>
+#include <stdexcept>
+
 #include "filter.h"
 
 class SharpeningFilter : public Filter {

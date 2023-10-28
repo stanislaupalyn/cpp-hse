@@ -1,9 +1,11 @@
 #pragma once
 
 #include <algorithm>
+#include <stdexcept>
 #include <string>
 
 #include "filter.h"
+#include "grayscale_filter.h"
 
 class EdgeDetectionFilter : public Filter {
 public:

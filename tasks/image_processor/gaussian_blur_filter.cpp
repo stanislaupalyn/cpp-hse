@@ -1,6 +1,5 @@
 #include "gaussian_blur_filter.h"
-
-#include "filter.h"
+#include <stdexcept>
 
 GaussianBlurFilter::GaussianBlurFilter(double sigma) {
     size_t size = static_cast<size_t>(ceil(SIGMA_SIZE_CONST * sigma));
@@ -121,10 +120,10 @@ void GaussianBlurFilter::Apply(Image& image) {
 
 Filter* ProduceGaussianBlurFilter(const FilterSettings& filter_settings) {
     if (filter_settings.name_ != "blur") {
-        throw std::logic_error("Trying to produce filter with another filter settings");
+        throw std::runtime_error("Trying to produce filter with another filter settings");
     }
     if (filter_settings.arguments_.size() != 1) {
-        throw std::logic_error("Wrong number of arguments for this filter");
+        throw std::runtime_error("Wrong number of arguments for this filter");
     }
     Filter* filter_ptr = new GaussianBlurFilter(stod(filter_settings.arguments_[0]));
     return filter_ptr;
