@@ -94,9 +94,6 @@ void GaussianBlurFilter::Apply(Image& image) {
                             --y;
                         }
 
-                        assert(x >= 0 && x < image.GetHeight());
-                        assert(y >= 0 && y < image.GetWidth());
-
                         double coef = filter_vector[i - row + shift];
                         sum_color.b_ += image(x, y).b_ * coef;
                         sum_color.g_ += image(x, y).g_ * coef;
