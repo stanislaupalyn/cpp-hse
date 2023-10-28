@@ -1,4 +1,5 @@
 #include "bmp.h"
+#include <fstream>
 
 std::fstream BMP::OpenToRead(const std::string& filename) {
     if (filename.empty()) {
@@ -6,7 +7,7 @@ std::fstream BMP::OpenToRead(const std::string& filename) {
     }
 
     std::fstream file;
-    file.open(filename, std::fstream::in);
+    file.open(filename, std::fstream::in | std::fstream::binary);
 
     if (!file.is_open()) {
         throw std::runtime_error("Cannot open file.");
@@ -20,7 +21,7 @@ std::fstream BMP::OpenToWrite(const std::string& filename) {
     }
 
     std::fstream file;
-    file.open(filename, std::fstream::out);
+    file.open(filename, std::fstream::out | std::fstream::binary);
 
     if (!file.is_open()) {
         throw std::runtime_error("Cannot open file.");
