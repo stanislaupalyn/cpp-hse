@@ -9,11 +9,6 @@ void Application::Config() {
     f_factory_.AddProducer("blur", ProduceGaussianBlurFilter);
 }
 
-// ./image_processor
-// /Users/stanislau/hse_se/pmi-235-1-Stanislau-Palyn-stanislavpolyn/tasks/image_processor/test_script/data/lenna.bmp
-// OUTPUT.bmp -crop 999 1999
-//                   /Users/stanislau/hse_se/pmi-235-1-Stanislau-Palyn-stanislavpolyn/tasks/image_processor/test_script/data/lenna.bmp
-
 void Application::Start(int argc, char** argv) {
     try {
         cl_parser_.Parse(argc, argv, app_settings_);
