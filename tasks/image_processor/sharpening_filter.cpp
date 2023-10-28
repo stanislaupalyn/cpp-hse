@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-void SharpeningFilter::Apply(Image &image) {
+void SharpeningFilter::Apply(Image& image) {
     std::vector<RGBReal> new_data(image.GetData().size());
 
     for (size_t row = 0; row < image.GetHeight(); ++row) {
@@ -25,14 +25,11 @@ void SharpeningFilter::Apply(Image &image) {
                     if (y >= image.GetWidth()) {
                         --y;
                     }
-                    
-                    assert(x >= 0 && x < image.GetHeight());
-                    assert(y >= 0 && y < image.GetWidth());
 
                     sum_color.b_ += image(x, y).b_ * FILTER_MATRIX[i - row + 1][j - col + 1];
                     sum_color.g_ += image(x, y).g_ * FILTER_MATRIX[i - row + 1][j - col + 1];
                     sum_color.r_ += image(x, y).r_ * FILTER_MATRIX[i - row + 1][j - col + 1];
-                }   
+                }
             }
             sum_color.b_ = std::max(sum_color.b_, 0.0);
             sum_color.b_ = std::min(sum_color.b_, 1.0);
@@ -53,7 +50,7 @@ Filter* ProduceSharpeningFilter(const FilterSettings& filter_settings) {
         throw std::logic_error("Trying to produce filter with another filter settings");
     }
     if (!filter_settings.arguments_.empty()) {
-        throw std::logic_error("Wrong number of arguments for this filter");        
+        throw std::logic_error("Wrong number of arguments for this filter");
     }
     Filter* filter_ptr = new SharpeningFilter();
     return filter_ptr;

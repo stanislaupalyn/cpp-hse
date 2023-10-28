@@ -1,10 +1,8 @@
 #include "edge_detection_filter.h"
+
 #include "grayscale_filter.h"
 
-#include <algorithm>
-#include <string>
-
-void EdgeDetectionFilter::Apply(Image &image) {
+void EdgeDetectionFilter::Apply(Image& image) {
     GrayscaleFilter gs;
     gs.Apply(image);
 
@@ -30,14 +28,11 @@ void EdgeDetectionFilter::Apply(Image &image) {
                     if (y >= image.GetWidth()) {
                         --y;
                     }
-                    
-                    assert(x >= 0 && x < image.GetHeight());
-                    assert(y >= 0 && y < image.GetWidth());
 
                     sum_color.b_ += image(x, y).b_ * FILTER_MATRIX[i - row + 1][j - col + 1];
                     sum_color.g_ += image(x, y).g_ * FILTER_MATRIX[i - row + 1][j - col + 1];
                     sum_color.r_ += image(x, y).r_ * FILTER_MATRIX[i - row + 1][j - col + 1];
-                }   
+                }
             }
             sum_color.b_ = std::max(sum_color.b_, 0.0);
             sum_color.b_ = std::min(sum_color.b_, 1.0);
@@ -74,7 +69,7 @@ Filter* ProduceEdgeDetectionFilter(const FilterSettings& filter_settings) {
         throw std::logic_error("Trying to produce filter with another filter settings");
     }
     if (filter_settings.arguments_.size() != 1) {
-        throw std::logic_error("Wrong number of arguments for this filter");        
+        throw std::logic_error("Wrong number of arguments for this filter");
     }
     Filter* filter_ptr = new EdgeDetectionFilter(std::stod(filter_settings.arguments_[0]));
     return filter_ptr;

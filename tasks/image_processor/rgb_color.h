@@ -1,22 +1,22 @@
 #pragma once
 
-#include <cstdint>
 #include <cmath>
+#include <cstdint>
 
 class RGBReal;
 class RGB24;
 
 class RGBReal {
 public:
-    static constexpr double MAX_COLOR_VALUE = 255.0; // NOLINT
-    
+    static constexpr double MAX_COLOR_VALUE = 255.0;  // NOLINT
+
     double b_;
     double g_;
     double r_;
 
     explicit operator RGB24() const;
-private:
 
+private:
 };
 
 class RGB24 {

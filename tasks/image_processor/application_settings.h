@@ -1,7 +1,8 @@
 #pragma once
 
-#include "filter.h"
 #include <string>
+
+#include "filter.h"
 
 struct ApplicationSettings {
     std::string input_file_path_;

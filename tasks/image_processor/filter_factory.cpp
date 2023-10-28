@@ -1,4 +1,5 @@
 #include "filter_factory.h"
+
 #include "filter.h"
 
 void FilterFactory::AddProducer(std::string name, std::function<Filter*(const FilterSettings&)> filter_producer) {

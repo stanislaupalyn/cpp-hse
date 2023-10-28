@@ -1,8 +1,10 @@
 #pragma once
 
 #include <cstdint>
-#include <string>
 #include <fstream>
+#include <stdexcept>
+#include <string>
+
 #include "rgb_color.h"
 
 class BMP {
@@ -75,6 +77,7 @@ public:
     const std::vector<RGB24>& GetData() const {
         return data_;
     }
+
 protected:
     /// File I/O
     std::fstream OpenToRead(const std::string& filename);

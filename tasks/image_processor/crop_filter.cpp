@@ -4,7 +4,9 @@ void CropFilter::Apply(Image& image) {
     if (image.GetHeight() > height_) {
         size_t extra = image.GetHeight() - height_;
         image.GetHeight() = height_;
-        image.GetData().erase(image.GetData().begin(), image.GetData().begin() + static_cast<int32_t>(extra) * static_cast<int32_t>(image.GetWidth()));
+        image.GetData().erase(
+            image.GetData().begin(),
+            image.GetData().begin() + static_cast<int32_t>(extra) * static_cast<int32_t>(image.GetWidth()));
     }
 
     if (image.GetWidth() > width_) {
@@ -26,7 +28,7 @@ Filter* ProduceCropFilter(const FilterSettings& filter_settings) {
         throw std::logic_error("Trying to produce filter with another filter settings");
     }
     if (filter_settings.arguments_.size() != 2) {
-        throw std::logic_error("Wrong number of arguments for this filter");        
+        throw std::logic_error("Wrong number of arguments for this filter");
     }
     Filter* filter_ptr = new CropFilter(stoi(filter_settings.arguments_[0]), stoi(filter_settings.arguments_[1]));
     return filter_ptr;

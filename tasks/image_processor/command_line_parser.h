@@ -1,7 +1,9 @@
 #pragma once
 
-#include "application_settings.h"
 #include <iostream>
+#include <stdexcept>
+
+#include "application_settings.h"
 
 class CommandLineParser {
 

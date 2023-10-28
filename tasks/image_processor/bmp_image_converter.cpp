@@ -13,7 +13,8 @@ Image BMPImageConverter::GetImageFromBMP(const BMP& bmp) {
     return image;
 }
 
-BMP BMPImageConverter::GetBMPFromImage(const Image& image, BMP::BMPHeader reference_bmp_header, BMP::DIBHeader reference_dib_header) {
+BMP BMPImageConverter::GetBMPFromImage(const Image& image, BMP::BMPHeader reference_bmp_header,
+                                       BMP::DIBHeader reference_dib_header) {
     BMP bmp;
 
     bmp.GetBMPHeader() = reference_bmp_header;

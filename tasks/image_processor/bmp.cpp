@@ -1,8 +1,5 @@
 #include "bmp.h"
 
-#include <fstream>
-#include <stdexcept>
-
 std::fstream BMP::OpenToRead(const std::string& filename) {
     if (filename.empty()) {
         throw std::invalid_argument("Filename is empty.");

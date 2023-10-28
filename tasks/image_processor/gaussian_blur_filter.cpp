@@ -1,6 +1,5 @@
 #include "gaussian_blur_filter.h"
 
-#include <iostream>
 #include "filter.h"
 
 GaussianBlurFilter::GaussianBlurFilter(double sigma) {
@@ -10,22 +9,19 @@ GaussianBlurFilter::GaussianBlurFilter(double sigma) {
     }
     filter_vector.resize(size);
 
-    {
-        int32_t shift = static_cast<int32_t>(filter_vector.size()) / 2;
+    int32_t shift = static_cast<int32_t>(filter_vector.size()) / 2;
 
-        double sum = 0;
-        for (int32_t x = -shift; x <= shift; ++x) {
-            double dist = x * x;
-            double power = dist / (2.0 * sigma * sigma); // NOLINT
-            filter_vector[x + shift] = 1.0 / sqrt(2.0 * M_PI * sigma * sigma) * exp(-power); // NOLINT
-            sum += filter_vector[x + shift];
-        }
-        for (int32_t x = 0; x < filter_vector.size(); ++x) {
-            filter_vector[x] /= sum;
-        }
+    double sum = 0;
+    for (int32_t x = -shift; x <= shift; ++x) {
+        double dist = x * x;
+        double power = dist / (2.0 * sigma * sigma);                                      // NOLINT
+        filter_vector[x + shift] = 1.0 / sqrt(2.0 * M_PI * sigma * sigma) * exp(-power);  // NOLINT
+        sum += filter_vector[x + shift];
+    }
+    for (int32_t x = 0; x < filter_vector.size(); ++x) {
+        filter_vector[x] /= sum;
     }
 }
-
 
 void GaussianBlurFilter::Apply(Image& image) {
     std::vector<RGBReal> new_data(image.GetData().size());
@@ -38,10 +34,8 @@ void GaussianBlurFilter::Apply(Image& image) {
             for (size_t col = 0; col < image.GetWidth(); ++col) {
                 RGBReal sum_color{0, 0, 0};
 
-                for (int32_t i = static_cast<int32_t>(row);
-                    i <= static_cast<int32_t>(row); ++i) {
-                    for (int32_t j = static_cast<int32_t>(col) - shift;
-                        j <= static_cast<int32_t>(col) + shift; ++j) {
+                for (int32_t i = static_cast<int32_t>(row); i <= static_cast<int32_t>(row); ++i) {
+                    for (int32_t j = static_cast<int32_t>(col) - shift; j <= static_cast<int32_t>(col) + shift; ++j) {
                         int32_t x = i;
                         int32_t y = j;
                         while (x < 0) {
@@ -56,9 +50,6 @@ void GaussianBlurFilter::Apply(Image& image) {
                         while (y >= image.GetWidth()) {
                             --y;
                         }
-
-                        assert(x >= 0 && x < image.GetHeight());
-                        assert(y >= 0 && y < image.GetWidth());
 
                         double coef = filter_vector[j - col + shift];
                         sum_color.b_ += image(x, y).b_ * coef;
@@ -87,10 +78,8 @@ void GaussianBlurFilter::Apply(Image& image) {
             for (size_t col = 0; col < image.GetWidth(); ++col) {
                 RGBReal sum_color{0, 0, 0};
 
-                for (int32_t i = static_cast<int32_t>(row) - shift;
-                    i <= static_cast<int32_t>(row) + shift; ++i) {
-                    for (int32_t j = static_cast<int32_t>(col);
-                        j <= static_cast<int32_t>(col); ++j) {
+                for (int32_t i = static_cast<int32_t>(row) - shift; i <= static_cast<int32_t>(row) + shift; ++i) {
+                    for (int32_t j = static_cast<int32_t>(col); j <= static_cast<int32_t>(col); ++j) {
                         int32_t x = i;
                         int32_t y = j;
                         while (x < 0) {

@@ -3,12 +3,13 @@
 #include "filter.h"
 
 class Pipeline {
-    public:
+public:
     ~Pipeline();
     void AddFilter(Filter* filter) {
         filters_.push_back(filter);
     }
     void ApplyPipeline(Image& image);
-    private:
+
+private:
     std::vector<Filter*> filters_;
 };

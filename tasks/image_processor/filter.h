@@ -1,7 +1,8 @@
 #pragma once
 
-#include "image.h"
 #include <string>
+
+#include "image.h"
 
 struct FilterSettings {
     std::string name_;
@@ -9,7 +10,7 @@ struct FilterSettings {
 };
 
 class Filter {
-    public:
+public:
     virtual ~Filter() = default;
     virtual void Apply(Image& bmp) = 0;
 };

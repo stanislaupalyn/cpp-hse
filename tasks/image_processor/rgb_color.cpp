@@ -1,7 +1,5 @@
 #include "rgb_color.h"
 
-#include <iostream>
-
 RGBReal::operator RGB24() const {
     return RGB24{static_cast<uint8_t>(std::round(RGBReal::MAX_COLOR_VALUE * b_)),
                  static_cast<uint8_t>(std::round(RGBReal::MAX_COLOR_VALUE * g_)),

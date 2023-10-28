@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+
 #include "rgb_color.h"
 
 class Image {

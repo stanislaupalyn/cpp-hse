@@ -1,5 +1,4 @@
 #include "command_line_parser.h"
-#include <stdexcept>
 
 void CommandLineParser::Parse(int argc, char* argv[], ApplicationSettings& app_settings) {
     if (argc < 3) {
