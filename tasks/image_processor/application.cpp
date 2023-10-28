@@ -9,8 +9,11 @@ void Application::Config() {
     f_factory_.AddProducer("blur", ProduceGaussianBlurFilter);
 }
 
-// ./image_processor /Users/stanislau/hse_se/pmi-235-1-Stanislau-Palyn-stanislavpolyn/tasks/image_processor/test_script/data/lenna.bmp OUTPUT.bmp -crop 999 1999
-//                   /Users/stanislau/hse_se/pmi-235-1-Stanislau-Palyn-stanislavpolyn/tasks/image_processor/test_script/data/lenna.bmp 
+// ./image_processor
+// /Users/stanislau/hse_se/pmi-235-1-Stanislau-Palyn-stanislavpolyn/tasks/image_processor/test_script/data/lenna.bmp
+// OUTPUT.bmp -crop 999 1999
+//                   /Users/stanislau/hse_se/pmi-235-1-Stanislau-Palyn-stanislavpolyn/tasks/image_processor/test_script/data/lenna.bmp
+
 void Application::Start(int argc, char** argv) {
     try {
         cl_parser_.Parse(argc, argv, app_settings_);
@@ -26,8 +29,6 @@ void Application::Start(int argc, char** argv) {
         BMP bmp;
 
         auto start = std::chrono::system_clock::now().time_since_epoch().count();
-
-        // std::cerr << "FROM: " << app_settings_.input_file_path_ << " TO " << app_settings_.output_file_path_ << "\n";
 
         bmp.ReadFromFile(app_settings_.input_file_path_);
         Image image = bmp_image_converter_.GetImageFromBMP(bmp);
