@@ -94,10 +94,11 @@ class ImageProcessorTester:
 
     def run_test_case(self, test_case):
         try:
+            # /Users/stanislau/hse_se/pmi-235-1-Stanislau-Palyn-stanislavpolyn/build/image_processor
             input_file_name = "{input}.bmp".format(input=test_case.input)
             output_file_name = "{input}_{name}.bmp".format(input=test_case.input, name=test_case.name)
-            input_file = os.path.join("test_script", "data", input_file_name)
-            expected_output_file = os.path.join("test_script", "data", output_file_name)
+            input_file = os.path.join("/", "Users", "stanislau", "hse_se", "pmi-235-1-Stanislau-Palyn-stanislavpolyn", "tasks", "image_processor", "test_script", "data", input_file_name)
+            expected_output_file = os.path.join("/", "Users", "stanislau", "hse_se", "pmi-235-1-Stanislau-Palyn-stanislavpolyn", "tasks", "image_processor", "test_script", "data", output_file_name)
 
             with tempfile.NamedTemporaryFile(suffix=".bmp") as output_file:
                 subprocess.check_call([self.image_processor_executable, input_file, output_file.name] + test_case.args,
@@ -121,7 +122,7 @@ class ImageProcessorTester:
 
 
 if __name__ == "__main__":
-    tester = ImageProcessorTester(image_processor_executable=sys.argv[1])
+    tester = ImageProcessorTester(image_processor_executable='/Users/stanislau/hse_se/pmi-235-1-Stanislau-Palyn-stanislavpolyn/build/image_processor')
 
     print(
         "Running image_processor tests\nExecutable: {executable}".format(executable=tester.image_processor_executable))

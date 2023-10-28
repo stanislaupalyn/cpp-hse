@@ -17,8 +17,7 @@ void CropFilter::Apply(Image& image) {
                 new_data.push_back(image(row, col));
             }
         }
-
-        image.GetWidth() = static_cast<int32_t>(width_);
+        image.GetWidth() = width_;
         image.GetData() = new_data;
     }
 }

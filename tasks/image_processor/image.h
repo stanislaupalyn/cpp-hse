@@ -16,13 +16,13 @@ public:
     Image& operator=(const Image& rhs);
 
     const size_t GetHeight() const {
-        return width_;
+        return height_;
     }
     size_t& GetHeight() {
         return height_;
     }
     const size_t GetWidth() const {
-        return height_;
+        return width_;
     }
     size_t& GetWidth() {
         return width_;
