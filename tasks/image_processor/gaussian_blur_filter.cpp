@@ -128,7 +128,9 @@ Filter* ProduceGaussianBlurFilter(const FilterSettings& filter_settings) {
         throw std::invalid_argument("Sigma in the gaussian blur fliter should be positive.");
     }
     if (sigma > GaussianBlurFilter::MAX_SIGMA_VALUE) {
-        throw std::invalid_argument("Sigma exceeds the maximum specified value (equals " + std::to_string(GaussianBlurFilter::MAX_SIGMA_VALUE) + ") for the Gaussian blur filter.");
+        throw std::invalid_argument("Sigma exceeds the maximum specified value (equals " +
+                                    std::to_string(GaussianBlurFilter::MAX_SIGMA_VALUE) +
+                                    ") for the Gaussian blur filter.");
     }
     Filter* filter_ptr = new GaussianBlurFilter(sigma);
     return filter_ptr;

@@ -35,7 +35,6 @@ void BMP::ReadBmp(std::fstream& file) {
         throw std::logic_error("File is not open.");
     }
 
-    // Always read from the beginning of the file
     file.seekg(0);
 
     ReadBmpHeader(file);
@@ -52,7 +51,6 @@ void BMP::ReadBmpHeader(std::fstream& file) {
         throw std::runtime_error("Error reading file.");
     }
 
-    // Checking validity of bmp_header_ right here
     if (bmp_header_.signature != BMP_SIGNATURE) {
         throw std::invalid_argument("BMP File is invalid.");
     }
