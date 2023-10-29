@@ -8,12 +8,6 @@ class Image {
 public:
     Image() : height_{0}, width_{0}, data_{0} {
     }
-    Image(const Image& origin) : height_{origin.height_}, width_{origin.width_}, data_{origin.data_} {
-    }
-
-    void Swap(Image& other);
-
-    Image& operator=(const Image& rhs);
 
     const size_t GetHeight() const {
         return height_;
