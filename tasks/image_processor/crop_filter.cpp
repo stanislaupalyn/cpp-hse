@@ -1,4 +1,5 @@
 #include "crop_filter.h"
+#include <stdexcept>
 
 void CropFilter::Apply(Image& image) {
     if (image.GetHeight() > height_) {
@@ -24,11 +25,18 @@ void CropFilter::Apply(Image& image) {
 
 Filter* ProduceCropFilter(const FilterSettings& filter_settings) {
     if (filter_settings.name_ != "crop") {
-        throw std::runtime_error("Trying to produce filter with another filter settings");
+        throw std::logic_error("Trying to produce filter with another filter settings.");
     }
     if (filter_settings.arguments_.size() != 2) {
-        throw std::runtime_error("Wrong number of arguments for this filter");
+        throw std::invalid_argument("Wrong number of arguments for crop filter.");
     }
-    Filter* filter_ptr = new CropFilter(stoi(filter_settings.arguments_[0]), stoi(filter_settings.arguments_[1]));
+    int32_t width = std::stoi(filter_settings.arguments_[0]);
+    int32_t height = std::stoi(filter_settings.arguments_[1]);
+
+    if (width <= 0 || height <= 0) {
+        throw std::invalid_argument("Width and height should be positive in crop filter.");
+    }
+
+    Filter* filter_ptr = new CropFilter(static_cast<size_t>(width), static_cast<size_t>(height));
     return filter_ptr;
 }

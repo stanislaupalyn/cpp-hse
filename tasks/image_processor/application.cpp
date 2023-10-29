@@ -1,4 +1,6 @@
 #include "application.h"
+#include <exception>
+#include <stdexcept>
 
 void Application::Config() {
     f_factory_.AddProducer("crop", ProduceCropFilter);
@@ -16,7 +18,7 @@ void Application::Start(int argc, char** argv) {
         for (const FilterSettings& filter_settings : app_settings_.filters_settings_) {
             FilterProducer filter_producer = f_factory_.GetProducer(filter_settings.name_);
             if (!filter_producer) {
-                throw std::runtime_error("Filter with the given name does not exist");
+                throw std::invalid_argument("Filter with the given name does not exist.");
             }
             pipeline_.AddFilter(filter_producer(filter_settings));
         }
@@ -35,6 +37,8 @@ void Application::Start(int argc, char** argv) {
         auto now = std::chrono::system_clock::now().time_since_epoch().count();
         std::cerr << "Time elapsed: " << static_cast<double>(now - start) / CLOCKS_PER_SEC << "\n";
 
+    } catch (std::invalid_argument& e) {
+        std::cerr << "Invalid input: " << e.what() << "\n";
     } catch (std::exception& e) {
         std::cerr << "Exception: " << e.what() << "\n";
     } catch (...) {

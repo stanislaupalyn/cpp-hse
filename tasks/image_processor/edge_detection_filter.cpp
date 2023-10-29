@@ -65,11 +65,15 @@ void EdgeDetectionFilter::Apply(Image& image) {
 
 Filter* ProduceEdgeDetectionFilter(const FilterSettings& filter_settings) {
     if (filter_settings.name_ != "edge") {
-        throw std::runtime_error("Trying to produce filter with another filter settings");
+        throw std::logic_error("Trying to produce filter with another filter settings.");
     }
     if (filter_settings.arguments_.size() != 1) {
-        throw std::runtime_error("Wrong number of arguments for this filter");
+        throw std::invalid_argument("Wrong number of arguments for edge detection filter.");
     }
-    Filter* filter_ptr = new EdgeDetectionFilter(std::stod(filter_settings.arguments_[0]));
+    double threshold = std::stod(filter_settings.arguments_[0]);
+    if (threshold < 0 || threshold > 1) {
+        throw std::invalid_argument("Threshold in the edge detection filter should be in segment [0, 1].");
+    }
+    Filter* filter_ptr = new EdgeDetectionFilter(threshold);
     return filter_ptr;
 }

@@ -1,5 +1,6 @@
 #include "bmp.h"
 #include <fstream>
+#include <stdexcept>
 
 std::fstream BMP::OpenToRead(const std::string& filename) {
     if (filename.empty()) {
@@ -53,7 +54,7 @@ void BMP::ReadBmpHeader(std::fstream& file) {
 
     // Checking validity of bmp_header_ right here
     if (bmp_header_.signature != BMP_SIGNATURE) {
-        throw std::runtime_error("BMP File is not correct.");
+        throw std::invalid_argument("BMP File is invalid.");
     }
 }
 
@@ -67,9 +68,8 @@ void BMP::ReadDibHeader(std::fstream& file) {
     }
 
     if (dib_header_.bits_per_pixel != BMP_BITS_PER_PIXEL) {
-        throw std::runtime_error("BMP File is not correct.");
+        throw std::runtime_error("BMP File is invalid.");
     }
-    // Check correctness of fields here...
 }
 
 void BMP::ReadData(std::fstream& file) {

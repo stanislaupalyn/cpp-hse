@@ -1,4 +1,5 @@
 #include "grayscale_filter.h"
+#include <stdexcept>
 
 void GrayscaleFilter::Apply(Image& image) {
     for (size_t row = 0; row < image.GetHeight(); ++row) {
@@ -12,10 +13,10 @@ void GrayscaleFilter::Apply(Image& image) {
 
 Filter* ProduceGrayscaleFilter(const FilterSettings& filter_settings) {
     if (filter_settings.name_ != "gs") {
-        throw std::runtime_error("Trying to produce filter with another filter settings");
+        throw std::logic_error("Trying to produce filter with another filter settings.");
     }
     if (!filter_settings.arguments_.empty()) {
-        throw std::runtime_error("Wrong number of arguments for this filter");
+        throw std::invalid_argument("Wrong number of arguments for grayscale filter.");
     }
     Filter* filter_ptr = new GrayscaleFilter();
     return filter_ptr;

@@ -1,4 +1,5 @@
 #include "sharpening_filter.h"
+#include <stdexcept>
 
 void SharpeningFilter::Apply(Image& image) {
     std::vector<RGBReal> new_data(image.GetData().size());
@@ -45,10 +46,10 @@ void SharpeningFilter::Apply(Image& image) {
 
 Filter* ProduceSharpeningFilter(const FilterSettings& filter_settings) {
     if (filter_settings.name_ != "sharp") {
-        throw std::runtime_error("Trying to produce filter with another filter settings");
+        throw std::logic_error("Trying to produce filter with another filter settings.");
     }
     if (!filter_settings.arguments_.empty()) {
-        throw std::runtime_error("Wrong number of arguments for this filter");
+        throw std::invalid_argument("Wrong number of arguments for sharpening filter.");
     }
     Filter* filter_ptr = new SharpeningFilter();
     return filter_ptr;

@@ -117,11 +117,19 @@ void GaussianBlurFilter::Apply(Image& image) {
 
 Filter* ProduceGaussianBlurFilter(const FilterSettings& filter_settings) {
     if (filter_settings.name_ != "blur") {
-        throw std::runtime_error("Trying to produce filter with another filter settings");
+        throw std::logic_error("Trying to produce filter with another filter settings.");
     }
     if (filter_settings.arguments_.size() != 1) {
-        throw std::runtime_error("Wrong number of arguments for this filter");
+        throw std::invalid_argument("Wrong number of arguments for Gaussian blur filter.");
     }
-    Filter* filter_ptr = new GaussianBlurFilter(stod(filter_settings.arguments_[0]));
+    double sigma = std::stod(filter_settings.arguments_[0]);
+
+    if (sigma <= 0) {
+        throw std::invalid_argument("Sigma in the gaussian blur fliter should be positive.");
+    }
+    if (sigma > GaussianBlurFilter::MAX_SIGMA_VALUE) {
+        throw std::invalid_argument("Sigma exceeds the maximum specified value (equals " + std::to_string(GaussianBlurFilter::MAX_SIGMA_VALUE) + ") for the Gaussian blur filter.");
+    }
+    Filter* filter_ptr = new GaussianBlurFilter(sigma);
     return filter_ptr;
 }
