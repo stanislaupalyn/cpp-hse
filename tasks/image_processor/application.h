@@ -32,7 +32,7 @@ private:
     BMPImageConverter bmp_image_converter_;
 
 public:
-    /// Initial app setup. Adds a mapping in the FilterFactory between 
+    /// Initial app setup. Adds a mapping in the FilterFactory between
     /// each filter's command line argument name and corresponding filter producer
     void Config();
 

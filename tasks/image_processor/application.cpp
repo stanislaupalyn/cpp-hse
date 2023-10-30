@@ -26,7 +26,6 @@ void Application::Start(int argc, char** argv) {
             pipeline_.AddFilter(filter_producer(filter_settings));
         }
 
-
         // Reading .bmp file in the BMP class, converting it to the Image class and applying the pipeline
         // Then, creating the BMP from the modifyied Image.
         // Fields (except height and width) in BMP and DIB headers are copied from the previous version
