@@ -20,6 +20,7 @@
 #include "grayscale_filter.h"
 #include "negative_filter.h"
 #include "sharpening_filter.h"
+#include "fisheye_filter.h"
 
 class Application {
 private:

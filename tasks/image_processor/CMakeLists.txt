@@ -21,5 +21,6 @@ add_executable(image_processor image_processor.cpp
                rgb_color rgb_color.cpp
                image image.cpp
                bmp_image_converter bmp_image_converter.cpp
-               gaussian_blur_filter gaussian_blur_filter.cpp)
+               gaussian_blur_filter gaussian_blur_filter.cpp
+               fisheye_filter fisheye_filter.cpp)
 

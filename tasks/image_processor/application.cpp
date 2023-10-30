@@ -9,6 +9,7 @@ void Application::Config() {
     f_factory_.AddProducer("sharp", ProduceSharpeningFilter);
     f_factory_.AddProducer("edge", ProduceEdgeDetectionFilter);
     f_factory_.AddProducer("blur", ProduceGaussianBlurFilter);
+    f_factory_.AddProducer("fisheye", ProduceFisheyeFilter);
 }
 
 void Application::Start(int argc, char** argv) {
