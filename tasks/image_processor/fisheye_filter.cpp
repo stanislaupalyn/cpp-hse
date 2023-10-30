@@ -4,7 +4,8 @@
 #include <stdexcept>
 
 RGBReal FisheyeFilter::GetPixel(double x, double y, const Image& image) const {
-    if (x < 0 || y < 0 || std::floor(x) >= static_cast<double>(image.GetHeight()) || std::floor(y) >= static_cast<double>(image.GetWidth())) {
+    if (x < 0 || y < 0 || std::floor(x) >= static_cast<double>(image.GetHeight()) ||
+        std::floor(y) >= static_cast<double>(image.GetWidth())) {
         return {0, 0, 0};
     }
     return image(static_cast<size_t>(std::floor(x)), static_cast<size_t>(std::floor(y)));
@@ -58,7 +59,6 @@ void FisheyeFilter::Apply(Image& image) {
     x_scale_ = (height - x_shift_ - x_shift2) / height;
     y_scale_ = (width - y_shift_ - y_shift2) / width;
 
-
     std::vector<RGBReal> new_data(image.GetData().size());
 
     for (size_t row = 0; row < image.GetHeight(); ++row) {
@@ -94,7 +94,8 @@ Filter* ProduceFisheyeFilter(const FilterSettings& filter_settings) {
         throw std::invalid_argument("Coordinates (center_x, center_y) in the fisheye filter should be non-negative");
     }
     if (alpha >= std::min(center_x, center_y)) {
-        throw std::invalid_argument("Alpha in the fisheye filter shoud be strictly less than minimal of (center_x, center_y)");
+        throw std::invalid_argument(
+            "Alpha in the fisheye filter shoud be strictly less than minimal of (center_x, center_y)");
     }
 
     Filter* filter_ptr = new FisheyeFilter(alpha, center_x, center_y);

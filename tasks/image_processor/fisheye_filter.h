@@ -4,6 +4,11 @@
 
 #include "filter.h"
 
+// -fisheye alpha center_x center_y
+// Applies to the image the distortion of the fisheye lens centered in coordinates (center_x, center_y).
+// Alpha is an argument that affects the distortion of the image (bigger -- more distorted)
+// Typical values are around 0.001
+
 class FisheyeFilter : public Filter {
 public:
     explicit FisheyeFilter(double alpha, double center_x, double center_y)
