@@ -3,6 +3,7 @@
 #include <chrono>
 #include <stdexcept>
 
+/// Utils and components
 #include "application_settings.h"
 #include "bmp.h"
 #include "bmp_image_converter.h"
@@ -31,6 +32,10 @@ private:
     BMPImageConverter bmp_image_converter_;
 
 public:
+    /// Initial app setup. Adds a mapping in the FilterFactory between 
+    /// each filter's command line argument name and corresponding filter producer
     void Config();
+
+    /// Called only once. Starts the application from command line arguments
     void Start(int argc, char* argv[]);
 };

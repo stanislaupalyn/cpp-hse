@@ -8,6 +8,10 @@
 
 #include "rgb_color.h"
 
+/// Class supports BMP file storage.
+/// Methods for writing content to a specific file path 
+/// and reading from a specific file are implemented
+
 class BMP {
 public:
     static const uint16_t BMP_SIGNATURE = 0x4D42;  // BM
